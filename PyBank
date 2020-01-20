@@ -1,0 +1,32 @@
+import os
+import csv
+
+pybank_csv = os.path.join('Resources', 'budget_data.csv')
+
+with open(pybank_csv, 'r') as csvfile:
+    Total_Months = 0
+    Total = 0
+    Average_Change = 867884
+    Profit = 0
+    Greatest_Inc = 0
+    Greatest_Dec = 0
+
+    csvreader = csv.reader(csvfile, delimiter=',')
+    header = next(csvreader)
+
+    for row in csvreader:
+        Total_Months = Total_Months + 1
+        Total = Total + int(row[1])
+        Average_Change = (int(row[1]) - Average_Change) / Total_Months
+
+        if int(row[1]) > Greatest_Inc:
+            Greatest_Inc = int(row[1])
+        
+        if int(row[1]) < Greatest_Dec:
+            Greatest_Dec = int(row[1])
+
+    print(f"Total Months: {Total_Months}")
+    print(f"Total: {Total}")
+    print(f"Average Change: {Average_Change}")
+    print(f"Greatest Increase in Profits:{Greatest_Inc}")
+    print(f"Greatest Decrease in Profits:{Greatest_Dec}")
