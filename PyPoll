@@ -1,0 +1,56 @@
+import os
+import csv
+
+PyPoll_csv = os.path.join('Resources', 'election_data.csv')
+
+with open(PyPoll_csv, 'r') as csvfile:
+    Total_Votes = 0
+    Khan = 0
+    Correy = 0
+    Li = 0
+    oTooley = 0
+
+    csvreader = csv.reader(csvfile, delimiter=',')
+    header = next(csvreader)
+
+    for row in csvreader:
+        Total_Votes = Total_Votes + 1
+
+        if row[2] == 'Khan':
+            Khan = Khan + 1
+        
+        elif row[2] == 'Correy':
+            Correy = Correy + 1
+        
+        elif row[2] == 'Li':
+            Li = Li + 1
+        
+        elif row[2] == "O'Tooley":
+            oTooley = oTooley + 1
+        
+    print('Election Results')
+    print('- - - - - - - - - - - - - - - - - - - - - - - -')
+    
+    print(f"Total Votes Cast:{Total_Votes}")
+
+    print('- - - - - - - - - - - - - - - - - - - - - - - -')
+
+    print(f"Khan: {100 * (Khan/Total_Votes):.4}%" + ' ' + '(' + str(Khan) + ')')
+    print(f"Correy: {100 * (Correy/Total_Votes):.4}%" + ' ' + '(' + str(Correy) + ')')
+    print(f"Li: {100 * (Li/Total_Votes):.4}%" + ' ' + '(' + str(Li) + ')')
+    print(f"O'Tooley: {100 * (oTooley/Total_Votes):.4}%" + ' ' + '(' + str(oTooley) + ')')
+
+    print('- - - - - - - - - - - - - - - - - - - - - - - -')
+
+    if Khan > Correy and Khan > Li and Khan > oTooley:
+        print("Khan Wins!")
+    
+    elif Correy > Li and Correy > oTooley:
+        print("Correy Wins!")
+    
+    elif Li > Correy:
+        print('Li Wins!')
+
+    else: print("O'Tooley Wins!")
+
+    print('- - - - - - - - - - - - - - - - - - - - - - - -')
